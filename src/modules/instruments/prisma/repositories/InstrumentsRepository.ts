@@ -1,5 +1,6 @@
 import { v4 as uuidV4 } from "uuid";
 import { prisma } from "../../../../database/prismaClient";
+import { IUpdateInstrumentDTO } from "../../dtos/IUpdateInstrumentDTO";
 import { IInstrumentsRepository } from "../../repositories/IInstrumentsRepository";
 import { Instrument } from "../entities/Instrument";
 
@@ -19,8 +20,14 @@ class InstrumentsRepository implements IInstrumentsRepository {
     });
   }
 
-  update(name: string, amount: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async update({ id, data }: IUpdateInstrumentDTO): Promise<Instrument> {
+    const instrument = await prisma.instruments.update({
+      where: {
+        id,
+      },
+      data
+    });
+    return instrument;
   }
 
   async delete(id: string): Promise<void> {
@@ -35,6 +42,16 @@ class InstrumentsRepository implements IInstrumentsRepository {
     const instrument = await prisma.instruments.findFirst({
       where: {
         name
+      }
+    });
+
+    return instrument;
+  }
+
+  async findById(id: string): Promise<Instrument | null> {
+    const instrument = await prisma.instruments.findFirst({
+      where: {
+        id
       }
     });
 
