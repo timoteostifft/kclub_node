@@ -22,7 +22,7 @@ class CreateInstrumentUseCase {
       throw new AppError('This instrument already exists!');
     }
 
-    const book = await this.instrumentsRepository.create(name, amount);
+    await this.instrumentsRepository.create(name, amount);
   }
 }
 
