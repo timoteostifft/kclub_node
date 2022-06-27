@@ -16,15 +16,19 @@ class InstrumentsRepository implements IInstrumentsRepository {
         name,
         amount
       }
-    })
+    });
   }
 
   update(name: string, amount: string): Promise<void> {
     throw new Error("Method not implemented.");
   }
 
-  delete(id: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async delete(id: string): Promise<void> {
+    await prisma.instruments.delete({
+      where: {
+        id
+      }
+    });
   }
 
   async findByName(name: string): Promise<Instrument | null> {
@@ -32,7 +36,7 @@ class InstrumentsRepository implements IInstrumentsRepository {
       where: {
         name
       }
-    })
+    });
 
     return instrument;
   }
