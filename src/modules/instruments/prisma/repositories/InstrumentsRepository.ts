@@ -7,8 +7,13 @@ class InstrumentsRepository implements IInstrumentsRepository {
     const all = await prisma.instruments.findMany();
     return all;
   }
-  create(name: string, amount: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async create(name: string, amount: string): Promise<void> {
+    const instrument = await prisma.books.create({
+      data: {
+        name,
+        amount
+      }
+    })
   }
   update(name: string, amount: string): Promise<void> {
     throw new Error("Method not implemented.");
