@@ -30,8 +30,6 @@ describe("delete instrument", () => {
 
     const all = await listInstrumentsUseCase.execute();
 
-    console.log(all);
-
     expect(all).toHaveLength(0);
   });
 })
