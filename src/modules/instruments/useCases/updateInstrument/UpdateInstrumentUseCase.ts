@@ -18,7 +18,7 @@ class UpdateInstrumentUseCase {
     private instrumentsRepository: IInstrumentsRepository
   ) { }
 
-  async execute({ id, data }: IRequest): Promise<Instrument> {
+  async execute({ id, data }: IRequest): Promise<Instrument | void> {
     const instrumentExists = await this.instrumentsRepository.findById(id)
 
     if (!instrumentExists) {
@@ -27,7 +27,9 @@ class UpdateInstrumentUseCase {
 
     const instrument = await this.instrumentsRepository.update({ id, data })
 
-    return instrument;
+    if (instrument) {
+      return instrument
+    }
   }
 }
 
