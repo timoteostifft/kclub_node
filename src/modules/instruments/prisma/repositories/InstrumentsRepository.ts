@@ -20,7 +20,7 @@ class InstrumentsRepository implements IInstrumentsRepository {
     });
   }
 
-  async update({ id, data }: IUpdateInstrumentDTO): Promise<Instrument> {
+  async update({ id, data }: IUpdateInstrumentDTO): Promise<Instrument | null> {
     const instrument = await prisma.instruments.update({
       where: {
         id,
